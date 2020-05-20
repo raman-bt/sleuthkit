@@ -1391,8 +1391,272 @@ public class BlackboardAttribute {
 		
 		TSK_HASH_PHOTODNA(146, "TSK_HASH_PHOTODNA",
 			bundle.getString("BlackboardAttribute.tskhashphotodna.text"),
-			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING)
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
 		
+		
+		TSK_USER_DOMAIN(500, "TSK_USER_DOMAIN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskUserDomain.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_USER_HOME_DIR(501, "TSK_USER_HOME_DIR", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskUserHomeDir.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_EXTRACTOR(502, "TSK_EXTRACTOR", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskExtractor.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_ADMIN_PRIV(503, "TSK_ADMIN_PRIV", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAdminPriv.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_LAST_LOGIN_DATE(504, "TSK_LAST_LOGIN_DATE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLastLoginDate.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.DATETIME),
+
+		TSK_EARLIEST_ACTIVITY_DATE(505, "TSK_EARLIEST_ACTIVITY_DATE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskEarliestActivityDate.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.DATETIME),
+
+		TSK_LATEST_ACTIVITY_DATE(506, "TSK_LATEST_ACTIVITY_DATE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLatestActivityDate.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.DATETIME),
+
+		TSK_RECENT_LOGINS(507, "TSK_RECENT_LOGINS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRecentLoginsCount.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		
+		TSK_LOGIN_COUNT_SAM(508, "TSK_LOGIN_COUNT_SAM", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskSAMLoginCount.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.INTEGER),
+		
+		TSK_ACCOUNT_STATUS(509, "TSK_ACCOUNT_STATUS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAccountStatus.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+				
+		TSK_ACCOUNT_LOCATION(510, "TSK_ACCOUNT_LOCATION", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAccountLocation.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+						
+		TSK_IS_USER_LOGGED_IN(511, "TSK_IS_USER_LOGGED_IN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskIsUserLoggedIn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_ARGUMENTS(512, "TSK_ARGUMENTS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskArguments.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_DETAILS(513, "TSK_DETAILS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskDetails.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_AGENT_VERSION(514, "TSK_AGENT_VERSION", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAgentVersion.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_COLLECTED_DATA_TYPES(515, "TSK_COLLECTED_DATA_TYPES", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskCollectedDataTypes.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_LOCAL_HOST_NAME(516, "TSK_LOCAL_HOST_NAME", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLocalHostname.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_LOCAL_IP(517, "TSK_LOCAL_IP", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLocalIP.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_TARGET_IMAGE_SIZE(518, "TSK_TARGET_IMAGE_SIZE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskTargetImageSize.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_REMOTE_HOST_NAME(519, "TSK_REMOTE_HOST_NAME", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRemoteHostname.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_REMOTE_IP(520, "TSK_REMOTE_IP", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRemoteIP.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_NEXT_HOP_ADDRESS(521, "TSK_NEXT_HOP_ADDRESS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskNextHopAddress.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_IS_SERVICE(522, "TSK_IS_SERVICE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskIsService.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_PID(523, "TSK_PID", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskPID.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_PPID(524, "TSK_PPID", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskPPID.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+ 
+		TSK_STATE(525, "TSK_STATE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskState.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_TRIGGERS(526, "TSK_TRIGGERS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskTriggers.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_LOGIN_TYPE(527, "TSK_LOGIN_TYPE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLoginType.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_REMOTE_USER(528, "TSK_REMOTE_USER", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRemoteUser.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_REMOTE_DOMAIN(529, "TSK_REMOTE_DOMAIN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRemoteDomain.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_LOGON_PROCESS_NAME(530, "TSK_LOGON_PROCESS_NAME", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLogonProcessName.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_AUTHENTICATION_PACKAGE(531, "TSK_AUTHENTICATION_PACKAGE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAuthenticationPackage.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_CONNECTION_TYPE(532, "TSK_CONNECTION_TYPE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskConnectionType.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_LOCAL_PORT(533, "TSK_LOCAL_PORT", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLocalPort.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		
+		TSK_IS_MULTICAST_ADDRESS(534, "TSK_IS_MULTICAST_ADDRESS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskMulticastAddress.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.INTEGER),
+		
+		TSK_IS_INFERRED(535, "TSK_IS_INFERRED", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskIsInferred.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.INTEGER),
+		
+		TSK_REMOTE_SHARE_NAME(536, "TSK_REMOTE_SHARE_NAME", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRemoteShareName.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_REMOTE_PORT(537, "TSK_REMOTE_PORT", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskRemotePort.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		
+		TSK_WEB_VISIT_TYPE(538, "TSK_WEB_VISIT_TYPE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskWebVisitType.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		 
+		TSK_WEB_VISIT_COUNT(539, "TSK_WEB_VISIT_COUNT", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskWebVisitCount.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		 
+		TSK_LOCAL_DOMAIN(540, "TSK_LOCAL_DOMAIN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLocalDomain.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		 
+		TSK_ACTIONS(541, "TSK_ACTIONS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskActions.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.JSON),
+		 
+		TSK_SOURCE_INFO(542, "TSK_SOURCE_INFO", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskSourceInfo.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.JSON),		
+		
+		TSK_IP_ADDRESS_SET(543, "TSK_IP_ADDRESS_SET", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskIpAddressSet.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),		
+		
+		TSK_HOST_NAME(544, "TSK_HOST_NAME", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskHostname.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_SCORE(545, "TSK_SCORE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskScore.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_EXTENDED_INFO(546, "TSK_EXTENDED_INFO", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskExtendedInfo.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.JSON),
+
+		TSK_CRITERIA(547, "TSK_CRITERIA", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskCriteria.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_NS_SOA_RESPONSE(548, "TSK_NS_SOA_RESPONSE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskNsSOAResponse.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		/** date values with epochmilli precision */
+		TSK_MODIFY_DATE_LN(549, "TSK_MODIFY_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskModifyDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_ACCESS_DATE_LN(550, "TSK_ACCESS_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAccessDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_CREATE_DATE_LN(551, "TSK_CREATE_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskCreateDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_FILE_RECORD_CHANGED_DATE_LN(552, "TSK_FILE_RECORD_CHANGED_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskChangeDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+		
+		TSK_FN_MODIFY_DATE_LN(553, "TSK_FN_MODIFY_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFnModifyDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_FN_ACCESS_DATE_LN(554, "TSK_FN_ACCESS_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFnAccessDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_FN_CREATE_DATE_LN(555, "TSK_FN_CREATE_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFnCreateDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_FN_FILE_RECORD_CHANGED_DATE_LN(556, "TSK_FN_FILE_RECORD_CHANGED_DATE_LN", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFnChangeDateLn.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_FILE_CONTENT_STATUS(557, "TSK_FILE_CONTENT_STATUS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFileContentStatus.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_FILE_CONTENT_LENGTH(558, "TSK_FILE_CONTENT_LENGTH", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFileContentLength.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.LONG),
+
+		TSK_PE_HEADER_INFO(559, "TSK_PE_HEADER_INFO", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskPEHeaderInfo.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.JSON),
+
+		TSK_FILE_CONTENT_COLLECTED(560, "TSK_FILE_CONTENT_COLLECTED", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFileContentCollected.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.INTEGER),
+
+		TSK_FILE_TYPE(561, "TSK_FILE_TYPE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFileType.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+		TSK_IS_DELETED(562, "TSK_IS_DELETED", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskIsDeleted.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.INTEGER),
+
+		TSK_IS_NAME_DELETED(563, "TSK_IS_NAME_DELETED", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskIsNameDeleted.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.INTEGER),
+
+		TSK_MD5_HASH(564, "TSK_MD5_HASH", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskMd5Hash.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+
+ 
+
 		;
 
 		private final int typeID;

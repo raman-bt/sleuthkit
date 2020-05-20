@@ -1231,7 +1231,132 @@ public class BlackboardArtifact implements Content {
 				bundle.getString("BlackboardArtifact.tskMetadata.text")),
 		
 		TSK_GPS_TRACK(58, "TSK_GPS_TRACK",
-				bundle.getString("BlackboardArtifact.tskTrack.text"));
+				bundle.getString("BlackboardArtifact.tskTrack.text")),
+		
+		/**
+		 * A startup item
+		 */
+		TSK_STARTUP_ITEM(100, "TSK_STARTUP_ITEM",
+				bundle.getString("BlackboardArtifact.tskStartupItem.text")),
+
+		/**
+		 * A registry entry 
+		 */
+		TSK_REGISTRY_ENTRY(101, "TSK_REGISTRY_ENTRY",
+				bundle.getString("BlackboardArtifact.tskRegistryEntry.text")),
+
+		/**
+		 * A Scheduled task entry from the scheduled task job files, wmi etc
+		 */
+		TSK_SCHEDULED_TASK(102, "TSK_SCHEDULED_TASK",
+				bundle.getString("BlackboardArtifact.tskScheduledTask.text")),
+		
+		/**
+		 * A program run event
+		 */
+		TSK_PROGRAM_RUN(103, "TSK_PROGRAM_RUN",
+				bundle.getString("BlackboardArtifact.tskProgramRunEvent.text")),
+		
+		/**
+		 * A user login event
+		 */
+		TSK_USER_LOGIN(104, "TSK_USER_LOGIN",
+				bundle.getString("BlackboardArtifact.tskUserLoginEvent.text")),
+		
+		/**
+		 * A scheduled task run event 
+		 */
+		TSK_SCHEDULED_TASK_RUN(105, "TSK_SCHEDULED_TASK_RUN",
+				bundle.getString("BlackboardArtifact.tskScheduledTaskRunEvent.text")),
+		
+		/**
+		 * DNS cache entry
+		 */
+		TSK_DNS_CACHE_ENTRY(106, "TSK_DNS_CACHE_ENTRY",
+				bundle.getString("BlackboardArtifact.tskDNSCacheEntry.text")),
+		
+		/**
+		 * ARP cache entry
+		 */
+		TSK_ARP_CACHE_ENTRY(107, "TSK_ARP_CACHE_ENTRY",
+				bundle.getString("BlackboardArtifact.tskARPCacheEntry.text")),
+		
+		/**
+		 * Routing table entry
+		 */
+		TSK_ROUTING_TABLE_ENTRY(108, "TSK_ROUTING_TABLE_ENTRY",
+				bundle.getString("BlackboardArtifact.tskRoutingTableEntry.text")),
+				
+		/**
+		 * Process 
+		 */
+		TSK_PROCESS(109, "TSK_PROCESS",
+				bundle.getString("BlackboardArtifact.tskProcess.text")),
+		
+		/**
+		 * Listening port entry
+		 */
+		TSK_LISTENING_PORT(110, "TSK_LISTENING_PORT",
+				bundle.getString("BlackboardArtifact.tskListeningPort.text")),
+		
+		/**
+		 * Mounted drive entry 
+		 */
+		TSK_MOUNTED_DRIVE(111, "TSK_MOUNTED_DRIVE",
+				bundle.getString("BlackboardArtifact.tskMountedDrive.text")),
+				
+		/**
+		 * Active Connection entry
+		 */
+		TSK_ACTIVE_CONNECTION(112, "TSK_ACTIVE_CONNECTION",
+				bundle.getString("BlackboardArtifact.tskActiveConnection.text")),
+		
+		/**
+		 * RDP event 
+		 */
+		TSK_RDP_EVENT(113, "TSK_RDP_EVENT",
+				bundle.getString("BlackboardArtifact.tskRDPEvent.text")),
+		
+		/**
+		 * Network Login 
+		 */
+		TSK_NETWORK_LOGIN(114, "TSK_NETWORK_LOGIN",
+				bundle.getString("BlackboardArtifact.tskNetworkLogin.text")),
+				
+		/**
+		 * Local login
+		 */
+		TSK_LOCAL_LOGIN(115, "TSK_LOCAL_LOGIN",
+				bundle.getString("BlackboardArtifact.tskLocalLogin.text")),
+		/**
+		 * Host
+		 */
+		TSK_HOST(116, "TSK_HOST",
+				bundle.getString("BlackboardArtifact.tskHost.text")),
+		
+		/**
+		 * Target info from ct - this has both collection data as well as os data.
+		 */
+		TSK_TARGET_INFO(117, "TSK_TARGET_INFO",
+				bundle.getString("BlackboardArtifact.tskTargetInfo.text")),
+		 
+		
+		/**
+		 * Analysis result.
+		 */
+		TSK_ANALYSIS_RESULT(118, "TSK_ANALYSIS_RESULT",
+				bundle.getString("BlackboardArtifact.tskAnalysisResult.text")),
+		
+		/**
+		 * Extended file info 
+		 */
+		TSK_FILE_EXT(119, "TSK_FILE_EXT",
+				bundle.getString("BlackboardArtifact.tskFileExt.text")),
+		 
+		
+		;
+		
+		
         /* To developers: For each new artifact, ensure that:
          * - The enum value has 1-line JavaDoc description
          * - The artifact catalog (artifact_catalog.dox) is updated to reflect the attributes it uses
