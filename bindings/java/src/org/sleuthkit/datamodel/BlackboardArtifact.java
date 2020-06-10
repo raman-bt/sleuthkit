@@ -20,7 +20,6 @@ package org.sleuthkit.datamodel;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -397,19 +396,7 @@ public class BlackboardArtifact implements Content {
 	 *                          added to the artifact.
 	 */
 	public void addAttributes(Collection<BlackboardAttribute> attributes, SleuthkitCase.CaseDbTransaction caseDbTransaction) throws TskCoreException {
-		if (attributes.isEmpty()) {
-			return;
-		}
-		caseDbTransaction.acquireSingleUserCaseWriteLock();
-		try {
-			for (BlackboardAttribute attribute : attributes) {
-				attribute.setArtifactId(artifactId);
-				attribute.setCaseDatabase(getSleuthkitCase());
-				getSleuthkitCase().addBlackBoardAttribute(attribute, artifactTypeId, caseDbTransaction.getConnection());
-			}
-		} catch (SQLException ex) {
-			throw new TskCoreException("Error adding blackboard attributes", ex);
-		}
+		getSleuthkitCase().addBlackboardAttributes(attributes, artifactTypeId, artifactId, caseDbTransaction);
 		attrsCache.addAll(attributes);
 	}
 
