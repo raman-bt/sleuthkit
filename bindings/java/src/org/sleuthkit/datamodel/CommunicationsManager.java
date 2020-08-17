@@ -259,11 +259,12 @@ public final class CommunicationsManager {
 	 *
 	 * @return AccountFileInstance
 	 *
-	 * @throws TskCoreException exception thrown if a critical error occurs
-	 *                          within TSK core
+	 * @throws TskCoreException          If a critical error occurs within TSK
+	 *                                   core
+	 * @throws InvalidAccountIDException If the account identifier is not valid.
 	 */
 	// NOTE: Full name given for Type for doxygen linking
-	public AccountFileInstance createAccountFileInstance(org.sleuthkit.datamodel.Account.Type accountType, String accountUniqueID, String moduleName, Content sourceFile) throws TskCoreException {
+	public AccountFileInstance createAccountFileInstance(org.sleuthkit.datamodel.Account.Type accountType, String accountUniqueID, String moduleName, Content sourceFile) throws TskCoreException, InvalidAccountIDException {
 
 		// make or get the Account (unique at the case-level)
 		Account account = getOrCreateAccount(accountType, normalizeAccountID(accountType, accountUniqueID));
@@ -294,11 +295,12 @@ public final class CommunicationsManager {
 	 *
 	 * @return Account, returns NULL is no matching account found
 	 *
-	 * @throws TskCoreException exception thrown if a critical error occurs
-	 *                          within TSK core
+	 * @throws TskCoreException          If a critical error occurs within TSK
+	 *                                   core.
+	 * @throws InvalidAccountIDException If the account identifier is not valid.
 	 */
 	// NOTE: Full name given for Type for doxygen linking
-	public Account getAccount(org.sleuthkit.datamodel.Account.Type accountType, String accountUniqueID) throws TskCoreException {
+	public Account getAccount(org.sleuthkit.datamodel.Account.Type accountType, String accountUniqueID) throws TskCoreException, InvalidAccountIDException {
 		Account account = null;
 		CaseDbConnection connection = db.getConnection();
 		db.acquireSingleUserCaseReadLock();
@@ -330,12 +332,12 @@ public final class CommunicationsManager {
 	 * instances and between all recipient account instances. All account
 	 * instances must be from the same data source.
 	 *
-	 * @param sender           sender account
-	 * @param recipients       list of recipients
-	 * @param sourceArtifact   Artifact that relationships were derived from
-	 * @param relationshipType The type of relationships to be created
+	 * @param sender           Sender account, may be null.
+	 * @param recipients       List of recipients, may be empty.
+	 * @param sourceArtifact   Artifact that relationships were derived from.
+	 * @param relationshipType The type of relationships to be created.
 	 * @param dateTime         Date of communications/relationship, as epoch
-	 *                         seconds
+	 *                         seconds.
 	 *
 	 *
 	 * @throws org.sleuthkit.datamodel.TskCoreException
@@ -402,10 +404,12 @@ public final class CommunicationsManager {
 	 *
 	 * @return A matching account, either existing or newly created.
 	 *
-	 * @throws TskCoreException exception thrown if a critical error occurs
-	 *                          within TSK core
+	 * @throws TskCoreException          exception thrown if a critical error
+	 *                                   occurs within TSK core
+	 * @throws InvalidAccountIDException If the account identifier is not valid.
+	 *
 	 */
-	private Account getOrCreateAccount(Account.Type accountType, String accountUniqueID) throws TskCoreException {
+	private Account getOrCreateAccount(Account.Type accountType, String accountUniqueID) throws TskCoreException, InvalidAccountIDException {
 		Account account = getAccount(accountType, accountUniqueID);
 		if (null == account) {
 			String query = " INTO accounts (account_type_id, account_unique_identifier) "
@@ -1292,6 +1296,64 @@ public final class CommunicationsManager {
 	}
 
 	/**
+	 * Gets a list of accounts that are related to the given artifact.
+	 *
+	 * @param artifact
+	 *
+	 * @return A list of distinct accounts or an empty list if none where found.
+	 *
+	 * @throws TskCoreException
+	 */
+	public List<Account> getAccountsRelatedToArtifact(BlackboardArtifact artifact) throws TskCoreException {
+		if (artifact == null) {
+			throw new IllegalArgumentException("null arugment passed to getAccountsRelatedToArtifact");
+		}
+
+		List<Account> accountList = new ArrayList<>();
+		try (CaseDbConnection connection = db.getConnection()) {
+			db.acquireSingleUserCaseReadLock();
+			try {
+				// In order to get a list of all the unique accounts in a relationship with the given aritfact
+				// we must first union a list of the unique account1_id in the relationship with artifact
+				// then the unique account2_id (inner select with union).  The outter select assures the list
+				// of the inner select only contains unique accounts.
+				String query = String.format("SELECT DISTINCT (account_id), account_type_id, account_unique_identifier"
+						+ "	FROM ("
+						+ " SELECT DISTINCT (account_id), account_type_id, account_unique_identifier"
+						+ " FROM accounts"
+						+ " JOIN account_relationships ON account1_id = account_id"
+						+ " WHERE relationship_source_obj_id = %d"
+						+ " UNION "
+						+ " SELECT DISTINCT (account_id), account_type_id, account_unique_identifier"
+						+ " FROM accounts"
+						+ " JOIN account_relationships ON account2_id = account_id"
+						+ " WHERE relationship_source_obj_id = %d) AS unionOfRelationships", artifact.getId(), artifact.getId());
+				try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+					while (rs.next()) {
+						Account.Type accountType = null;
+						int accountTypeId = rs.getInt("account_type_id");
+						for (Map.Entry<Account.Type, Integer> entry : accountTypeToTypeIdMap.entrySet()) {
+							if (entry.getValue() == accountTypeId) {
+								accountType = entry.getKey();
+								break;
+							}
+						}
+
+						accountList.add(new Account(rs.getInt("account_id"), accountType, rs.getString("account_unique_identifier")));
+					}
+				} catch (SQLException ex) {
+					throw new TskCoreException("Unable to get account list for give artifact " + artifact.getId(), ex);
+				}
+
+			} finally {
+				db.releaseSingleUserCaseReadLock();
+			}
+		}
+
+		return accountList;
+	}
+
+	/**
 	 * Get account_type_id for the given account type.
 	 *
 	 * @param accountType account type to lookup.
@@ -1314,20 +1376,26 @@ public final class CommunicationsManager {
 	 * @param accountUniqueID The account id to normalize
 	 *
 	 * @return The normalized account id.
+	 *
+	 * @throws InvalidAccountIDException If the account identifier is not valid.
 	 */
-	private String normalizeAccountID(Account.Type accountType, String accountUniqueID) throws TskCoreException {
-		String normailzeAccountID = accountUniqueID;
+	private String normalizeAccountID(Account.Type accountType, String accountUniqueID) throws InvalidAccountIDException {
 
-		if (accountType.equals(Account.Type.PHONE)) {
-			normailzeAccountID = CommunicationsUtils.normalizePhoneNum(accountUniqueID);
-		} else if (accountType.equals(Account.Type.EMAIL)) {
-			normailzeAccountID = CommunicationsUtils.normalizeEmailAddress(accountUniqueID);
+		if (accountUniqueID == null || accountUniqueID.isEmpty()) {
+			throw new InvalidAccountIDException("Account id is null or empty.");
 		}
 
-		return normailzeAccountID;
-	}
+		String normalizedAccountID;
+		if (accountType.equals(Account.Type.PHONE)) {
+			normalizedAccountID = CommunicationsUtils.normalizePhoneNum(accountUniqueID);
+		} else if (accountType.equals(Account.Type.EMAIL)) {
+			normalizedAccountID = CommunicationsUtils.normalizeEmailAddress(accountUniqueID);
+		} else {
+			normalizedAccountID = accountUniqueID.toLowerCase().trim();
+		}
 
-	
+		return normalizedAccountID;
+	}
 
 	/**
 	 * Builds the SQL for the given CommunicationsFilter.

@@ -282,10 +282,7 @@ The last known location of a GPS connected device. This may be from a perspectiv
 A GPS route.
 
 ### REQUIRED ATTRIBUTES
-- TSK_GEO_LATITUDE_START (The latitude value of the starting point)
-- TSK_GEO_LATITUDE_END (The latitude value of the ending point)
-- TSK_GEO_LONGITUDE_START (The longitude value of the ending point)
-- TSK_GEO_LONGITUDE_END (The longitude value of the ending point)
+- TSK_GEO_WAYPOINTS (JSON list of waypoints. Use org.sleuthkit.datamodel.blackboardutils.attributes.GeoWaypoints class to create/process)
 
 ### OPTIONAL ATTRIBUTES
 - TSK_DATETIME (Timestamp of the GPS route, in seconds since 1970-01-01T00:00:00Z)
@@ -312,18 +309,15 @@ A GPS location that was known to have been searched by the device or user.
 
 
 ---
-## TSK_GPS_TRACKPOINT
-A GPS trackpoint found in an application, file or database.
+## TSK_GPS_TRACK
+A Global Positioning System (GPS) track artifact records the track, or path, of a GPS-enabled dvice as a connected series of track points. A track point is a location in a geographic coordinate system with latitude, longitude and altitude (elevation) axes.
 
 ### REQUIRED ATTRIBUTES
-- TSK_GEO_LATITUDE (The GPS latitude value that was tracked)
-- TSK_GEO_LONGITUDE (The GPS longitude value that was tracked)
+- TSK_GEO_TRACKPOINTS (JSON list of trackpoints. Use org.sleuthkit.datamodel.blackboardutils.attributes.GeoTrackPoints class to create/process)
 
 ### OPTIONAL ATTRIBUTES
-- TSK_DATETIME (Timestamp of the GPS trackpoint, in seconds since 1970-01-01T00:00:00Z)
-- TSK_GEO_ALTITUDE (Altitude of the latitude and longitude values)
-- TSK_NAME (The name of the trackpoint. Ex: Boston)
-- TSK_PROG_NAME (Name of application containing the GPS trackpoint)
+- TSK_NAME (The name of the trackpoint set. Ex: Boston)
+- TSK_PROG_NAME (Name of application containing the GPS trackpoint set)
 
 
 
@@ -407,6 +401,7 @@ A message that is found in some content.
 - TSK_MESSAGE_TYPE (E.g., WhatsApp Message, Skype Message, etc.)
 
 ### OPTIONAL ATTRIBUTES
+- TSK_ATTACHMENTS (Attachments - use the org.sleuthkit.datamodel.blackboardutils.CommunicationArtifactsHelper class to add an attachment)
 - TSK_DATETIME (Timestamp the message was sent or received, in seconds since 1970-01-01T00:00:00Z) 
 - TSK_DIRECTION (Direction of the message, e.g., incoming or outgoing)
 - TSK_EMAIL_FROM (Email address of the sender)
@@ -427,7 +422,16 @@ General metadata for some content.
 ### REQUIRED ATTRIBUTES
 None
 
-
+### OPTIONAL ATTRIBUTES
+- TSK_DATETIME_CREATED  (Timestamp the document was created)
+- TSK_DATETIME_MODIFIED (Timestamp the document was modified)
+- TSK_DESCRIPTION (Title of the document)
+- TSK_LAST_PRINTED_DATETIME (Timestamp when document was last printed)
+- TSK_ORGANIZATION (Organization/Company who owns the document)
+- TSK_OWNER (Author of the document)
+- TSK_PROG_NAME (Program used to create the document)
+- TSK_USER_ID (Last author of the document)
+- TSK_VERSION (Version number of the program used to create the document)
 
 ---
 ## TSK_METADATA_EXIF
@@ -514,6 +518,11 @@ The number of times a program/application was run.
 
 ### OPTIONAL ATTRIBUTES
 - TSK_DATETIME (Timestamp that application was run last, in seconds since 1970-01-01T00:00:00Z)
+- TSK_BYTES_SENT (Number of bytes sent)
+- TSK_BYTES_RECEIVED (Number of bytes received)
+- TSK_USER_NAME (User who executed the program)
+- TSK_COMMENT (Source of the attribute)
+- TSK_PATH (Path of the executable program)
 
 
 
@@ -645,7 +654,7 @@ A web bookmark entry.
 A web cache entry. The resource that was cached may or may not be present in the data source.
 
 ### REQUIRED ATTRIBUTES
-- TSK_PATH (Path to the source cache file. There are typically many cache files which each contain many cached resources)
+- TSK_PATH (Path to the cached file. This could point to a container file that has smaller cached data in it.) 
 - TSK_URL (URL of the resource cached in this entry)
 
 ### OPTIONAL ATTRIBUTES
@@ -670,7 +679,6 @@ A Web cookie found.
 - TSK_DATETIME_END (Expiration datetime of the Web cookie, in seconds since 1970-01-01T00:00:00Z)
 - TSK_DOMAIN (The domain the Web cookie serves)
 - TSK_PROG_NAME (Name of the application or application extractor that stored the Web cookie)
-- TSK_PATH (Path to the file containing the Web cookie in the data source)
 
 
 
