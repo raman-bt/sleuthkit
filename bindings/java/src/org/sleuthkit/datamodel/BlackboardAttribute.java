@@ -1655,6 +1655,69 @@ public class BlackboardAttribute {
 			bundle.getString("BlackboardAttribute.tskMd5Hash.text"),
 			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
 
+		TSK_SYSTEM_PATH_VAR(565, "TSK_SYSTEM_PATH_VAR", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskSystemPathVar.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_WINDOWS_PRODUCT_NAME(566, "TSK_WINDOWS_PRODUCT_NAME", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskWinProdName.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		WIN_NT_VERSION(567, "WIN_NT_VERSION", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskWinNTVer.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_HOST_ID(568, "TSK_HOST_ID", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskHostId.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_HOST_FILE_DIR(569, "TSK_HOST_FILE_DIR", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskHostFileDir.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_LOGON_AUDIT_FLAGS(570, "TSK_LOGON_AUDIT_FLAGS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLoginAuditFlags.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_LOGOFF_AUDIT_FLAGS(571, "TSK_LOGOFF_AUDIT_FLAGS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskLogoffAuditFlags.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_CRED_VALIDATION_AUDIT_FLAGS(572, "TSK_CRED_VALIDATION_AUDIT_FLAGS", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskCredValAuditFlg.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_FIREWALL_DOMAIN_PROFILE(573, "TSK_FIREWALL_DOMAIN_PROFILE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFirewallDomainProfile.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_FIREWALL_PUBLIC_PROFILE(574, "TSK_FIREWALL_PUBLIC_PROFILE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFirewallPublicProfile.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_FIREWALL_STD_PROFILE(575, "TSK_FIREWALL_STD_PROFILE", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskFirewallStdProfile.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_WIN_ERROR_REPORTING_SVC(576, "TSK_WIN_ERROR_REPORTING_SVC", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskErrRepSvc.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_WIN_DEFENDER_SVC(577, "TSK_WIN_DEFENDER_SVC", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskWinDefSvc.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_SECURITY_CENTER_SVC(578, "TSK_SECURITY_CENTER_SVC", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskSecCtrSvc.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_BCK_INTELLIGENT_TX_SVC(579, "TSK_BCK_INTELLIGENT_TX_SVC", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskBckTxSvc.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
+		
+		TSK_AUTO_UPDATE_SVC(580, "TSK_AUTO_UPDATE_SVC", //NON-NLS
+			bundle.getString("BlackboardAttribute.tskAutoUpdateSvc.text"),
+			TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING),
  
 
 		;
