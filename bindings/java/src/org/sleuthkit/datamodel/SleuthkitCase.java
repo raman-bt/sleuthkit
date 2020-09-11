@@ -3923,7 +3923,6 @@ public class SleuthkitCase {
 		if (transaction == null) {
 			throw new TskCoreException("Passed null CaseDbTransaction");
 		}
-		transaction.acquireSingleUserCaseWriteLock();
 		try {
 			CaseDbConnection connection = transaction.getConnection();
 			for (final BlackboardAttribute attr : attributes) {
@@ -4576,8 +4575,10 @@ public class SleuthkitCase {
 	 *                          within tsk core
 	 */
 	public BlackboardArtifact newBlackboardArtifact(ARTIFACT_TYPE artifactType, long obj_id, CaseDbTransaction transaction) throws TskCoreException {
-		CaseDbConnection connection = transaction.getConnection();		
-		transaction.acquireSingleUserCaseWriteLock();
+		if (transaction == null) {
+			throw new TskCoreException("Passed null CaseDbTransaction");
+		}
+		CaseDbConnection connection = transaction.getConnection();
 		try {
 			return newBlackboardArtifact(artifactType.getTypeID(), obj_id, artifactType.getLabel(), artifactType.getDisplayName(), connection);
 		} finally {
