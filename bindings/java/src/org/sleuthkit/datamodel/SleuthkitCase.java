@@ -1,7 +1,7 @@
 /*
  * Sleuth Kit Data Model
  *
- * Copyright 2011-2019 Basis Technology Corp.
+ * Copyright 2011-2020 Basis Technology Corp.
  * Contact: carrier <at> sleuthkit <dot> org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -3933,7 +3933,6 @@ public class SleuthkitCase {
 			throw new TskCoreException("Error adding blackboard attributes", ex);
 		} 
 	}
-	
 	void addBlackBoardAttribute(BlackboardAttribute attr, int artifactTypeId, CaseDbConnection connection) throws SQLException, TskCoreException {
 		PreparedStatement statement;
 		switch (attr.getAttributeType().getValueType()) {
@@ -4529,14 +4528,7 @@ public class SleuthkitCase {
 	 */
 	public BlackboardArtifact newBlackboardArtifact(int artifactTypeID, long obj_id) throws TskCoreException {
 		BlackboardArtifact.Type type = getArtifactType(artifactTypeID);
-		CaseDbConnection connection = connections.getConnection();
-		acquireSingleUserCaseWriteLock();
-		try {
-			return newBlackboardArtifact(artifactTypeID, obj_id, type.getTypeName(), type.getDisplayName(), connection);
-		} finally {
-			releaseSingleUserCaseWriteLock();
-			connection.close();
-		}
+		return newBlackboardArtifact(artifactTypeID, obj_id, type.getTypeName(), type.getDisplayName());
 	}
 
 	/**
@@ -4551,26 +4543,19 @@ public class SleuthkitCase {
 	 *                          within tsk core
 	 */
 	public BlackboardArtifact newBlackboardArtifact(ARTIFACT_TYPE artifactType, long obj_id) throws TskCoreException {
-		CaseDbConnection connection = connections.getConnection();
-		acquireSingleUserCaseWriteLock();
-		try {
-			return newBlackboardArtifact(artifactType.getTypeID(), obj_id, artifactType.getLabel(), artifactType.getDisplayName(), connection);
-		} finally {
-			releaseSingleUserCaseWriteLock();
-			connection.close();
-		}
+		return newBlackboardArtifact(artifactType.getTypeID(), obj_id, artifactType.getLabel(), artifactType.getDisplayName());
 	}
 
 	/**
-	 * Add a new blackboard artifact with the given type. 
-	 * 
+	 * Add a new blackboard artifact with the given type.
+	 *
 	 * @param artifactType the type the given artifact should have
 	 * @param obj_id	   the content object id associated with this artifact
 	 * @param transaction  the transaction in the scope of which the operation
 	 *                     is to be performed, managed by the caller
-	 * 
+	 *
 	 * @return a new blackboard artifact
-	 * 
+	 *
 	 * @throws TskCoreException exception thrown if a critical error occurs
 	 *                          within tsk core
 	 */
@@ -4580,18 +4565,46 @@ public class SleuthkitCase {
 		}
 		CaseDbConnection connection = transaction.getConnection();
 		try {
-			return newBlackboardArtifact(artifactType.getTypeID(), obj_id, artifactType.getLabel(), artifactType.getDisplayName(), connection);
+			long data_source_obj_id = getDataSourceObjectId(connection, obj_id);
+			return newBlackboardArtifact(artifactType.getTypeID(), obj_id, artifactType.getLabel(), artifactType.getDisplayName(), data_source_obj_id, connection);
 		} finally {
 
 		}
 	}
 
-	private BlackboardArtifact newBlackboardArtifact(int artifact_type_id, long obj_id, String artifactTypeName, String artifactDisplayName, CaseDbConnection connection) throws TskCoreException {
-		ResultSet resultSet = null;
-		try {
-			long artifact_obj_id = addObject(obj_id, TskData.ObjectType.ARTIFACT.getObjectType(), connection);
-			long data_source_obj_id = getDataSourceObjectId(connection, obj_id);
 
+	/**
+	 * Add a new blackboard artifact with the given type.
+	 *
+	 * @param artifactType the type the given artifact should have
+	 * @param obj_id       the content object id associated with this artifact
+	 * @param data_source_obj_id The data source obj id associated with this artifact
+	 *
+	 * @return a new blackboard artifact
+	 *
+	 * @throws TskCoreException exception thrown if a critical error occurs
+	 *                          within tsk core
+	 */
+	BlackboardArtifact newBlackboardArtifact(int artifactTypeID, long obj_id, long data_source_obj_id) throws TskCoreException {
+		BlackboardArtifact.Type type = getArtifactType(artifactTypeID);
+		try (CaseDbConnection connection = connections.getConnection()) {
+			return newBlackboardArtifact(artifactTypeID, obj_id, type.getTypeName(), type.getDisplayName(), data_source_obj_id, connection);
+		}
+	}
+
+	
+	private BlackboardArtifact newBlackboardArtifact(int artifact_type_id, long obj_id, String artifactTypeName, String artifactDisplayName) throws TskCoreException {
+		try (CaseDbConnection connection = connections.getConnection()) {
+			long data_source_obj_id = getDataSourceObjectId(connection, obj_id);
+			return this.newBlackboardArtifact(artifact_type_id, obj_id, artifactTypeName, artifactDisplayName, data_source_obj_id, connection);
+		}
+	}
+
+
+	private BlackboardArtifact newBlackboardArtifact(int artifact_type_id, long obj_id, String artifactTypeName, String artifactDisplayName, long data_source_obj_id, CaseDbConnection connection) throws TskCoreException {
+
+		try  {
+			long artifact_obj_id = addObject(obj_id, TskData.ObjectType.ARTIFACT.getObjectType(), connection);
 			PreparedStatement statement = null;
 			if (dbType == DbType.POSTGRESQL) {
 				statement = connection.getPreparedStatement(PREPARED_STATEMENT.POSTGRESQL_INSERT_ARTIFACT, Statement.RETURN_GENERATED_KEYS);
@@ -4613,14 +4626,15 @@ public class SleuthkitCase {
 
 			}
 			connection.executeUpdate(statement);
-			resultSet = statement.getGeneratedKeys();
-			resultSet.next();
-			return new BlackboardArtifact(this, resultSet.getLong(1), //last_insert_rowid()
-					obj_id, artifact_obj_id, data_source_obj_id, artifact_type_id, artifactTypeName, artifactDisplayName, BlackboardArtifact.ReviewStatus.UNDECIDED, true);
+			try (ResultSet resultSet = statement.getGeneratedKeys()) {
+				resultSet.next();
+				return new BlackboardArtifact(this, resultSet.getLong(1), //last_insert_rowid()
+						obj_id, artifact_obj_id, data_source_obj_id, artifact_type_id, artifactTypeName, artifactDisplayName, BlackboardArtifact.ReviewStatus.UNDECIDED, true);
+			}
 		} catch (SQLException ex) {
 			throw new TskCoreException("Error creating a blackboard artifact", ex);
 		} finally {
-			closeResultSet(resultSet);
+
 		}
 	}
 
@@ -7463,6 +7477,41 @@ public class SleuthkitCase {
 			closeResultSet(rs);
 			closeStatement(s);
 			connection.close();
+			releaseSingleUserCaseReadLock();
+		}
+	}
+	
+	/**
+	 * Find and return list of all (abstract) files matching the specific Where
+	 * clause with the give parentId. You need to know the database schema to 
+	 * use this, which is outlined on the
+	 * <a href="http://wiki.sleuthkit.org/index.php?title=SQLite_Database_v3_Schema">wiki</a>.
+	 * You should use enums from org.sleuthkit.datamodel.TskData to make the
+	 * queries easier to maintain and understand.
+	 * 
+	 * @param parentId The parentId 
+	 * @param sqlWhereClause a SQL where clause appropriate for the desired
+	 *                       files (do not begin the WHERE clause with the word
+	 *                       WHERE!)
+	 *
+	 * @return a list of AbstractFile each of which satisfy the given WHERE
+	 *         clause
+	 *
+	 * @throws TskCoreException \ref query_database_page
+	 */
+	public List<AbstractFile> findAllFilesInFolderWhere(long parentId, String sqlWhereClause) throws TskCoreException{
+		String queryTemplate =  "SELECT tsk_files.* FROM tsk_files JOIN tsk_objects ON tsk_objects.obj_id = tsk_files.obj_id WHERE par_obj_id = %d AND %s";
+		
+		try(CaseDbConnection connection = connections.getConnection()) {
+			acquireSingleUserCaseReadLock();
+			
+			String query = String.format(queryTemplate, parentId, sqlWhereClause);
+			try(Statement s = connection.createStatement(); ResultSet rs = connection.executeQuery(s, query)) {
+				return resultSetToAbstractFiles(rs, connection);
+			} catch(SQLException ex) {
+				throw new TskCoreException("SQLException thrown when calling 'SleuthkitCase.findAllFilesInFolderWhere(): " + query, ex);
+			}
+		}finally {
 			releaseSingleUserCaseReadLock();
 		}
 	}
