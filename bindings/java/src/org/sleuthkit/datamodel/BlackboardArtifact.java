@@ -1276,6 +1276,12 @@ public class BlackboardArtifact implements Content {
 		 */
 		TSK_GPS_TRACK(58, "TSK_GPS_TRACK",
 				bundle.getString("BlackboardArtifact.tskTrack.text")),
+
+		/**
+		 * Stores a role on a given domain.
+		 */
+		TSK_WEB_ACCOUNT_TYPE(59, "TSK_WEB_ACCOUNT_TYPE",
+				bundle.getString("BlackboardArtifact.tskWebAccountType.text")),
 		
 		/**
 		 * A startup item
