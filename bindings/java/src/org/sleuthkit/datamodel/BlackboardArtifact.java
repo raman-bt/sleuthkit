@@ -1479,8 +1479,44 @@ public class BlackboardArtifact implements Content {
 				bundle.getString("BlackboardArtifact.tskFileExt.text")),
 		 
 		
-		;
-				
+		/**
+		 * CyberTriage specific AR artifacts.
+		 * 
+		 * Eventually these will be custom 
+		 * artifact types created by CyberTriage app at startup.
+		 */
+		
+		EXE_LOCATION_RECYCLE_BIN(120, "EXE_LOCATION_RECYCLE_BIN", 
+				"EXE in Recycle bin", Category.ANALYSIS_RESULT),
+		
+		EXE_LOCATION_ADS(121, "EXE_LOCATION_ADS",
+				"EXE in Alternate Data Stream", Category.ANALYSIS_RESULT),
+		
+		EXE_PACKED(122, "EXE_PACKED",
+				"Packed EXE", Category.ANALYSIS_RESULT),
+		
+		EXE_SIGNATURE(123, "EXE_SIGNATURE",
+				"EXE Signature", Category.ANALYSIS_RESULT),
+		
+		PROCESS_NETWORK_DRIVE(124, "PROCESS_NETWORK_DRIVE",
+				"Process running from network drive", Category.ANALYSIS_RESULT),
+		
+		STARTUP_REG_KEY_NAME_LONG(125, "STARTUP_REG_KEY_NAME_LONG",
+				"Long startup registry key name", Category.ANALYSIS_RESULT),
+		
+		STARTUP_REG_VAL_NAME_LONG(126, "STARTUP_REG_VAL_NAME_LONG",
+				"Long startup registry key value", Category.ANALYSIS_RESULT),
+		
+		STARTUP_REG_ARGS_LONG(127, "STARTUP_REG_ARGS_LONG",
+				"Long args list for startup program command", Category.ANALYSIS_RESULT),
+		
+		CONFIG_USERINIT_MULTIPLE_ENTRIES(128, "CONFIG_USERINIT_MULTIPLE_ENTRIES",
+				"Login/Userinit has multiple entries", Category.ANALYSIS_RESULT),
+		
+		CONFIG_SHELL_MULTIPLE_ENTRIES(129, "CONFIG_SHELL_MULTIPLE_ENTRIES",
+				"Login/Shell has multiple entries", Category.ANALYSIS_RESULT),
+	
+		;	
 		/*
 		 * To developers: For each new artifact, ensure that: - The enum value
 		 * has 1-line JavaDoc description - The artifact catalog
